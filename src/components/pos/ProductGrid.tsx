@@ -55,24 +55,24 @@ export function ProductGrid({
   }, [products, searchQuery, filterType]);
 
   return (
-    <div className="flex flex-col h-full bg-zinc-950 p-4 lg:p-6 overflow-hidden">
+    <div className="flex flex-col h-full bg-slate-50 dark:bg-zinc-950 p-4 lg:p-6 overflow-hidden transition-colors duration-200">
       {/* Search Bar & Filter Controls */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-4">
         {/* Search Input */}
         <div className="relative flex-1">
-          <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <Search className="w-4 h-4 text-slate-400 dark:text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             ref={searchInputRef}
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search products by name or SKU... (Press '/' to search)"
-            className="w-full bg-zinc-900 border border-zinc-800 text-zinc-100 placeholder-zinc-500 rounded-xl pl-10 pr-9 py-2.5 text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/50 transition-all shadow-inner"
+            className="w-full bg-white dark:bg-zinc-900 border border-slate-300 dark:border-zinc-800 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 rounded-xl pl-10 pr-9 py-2.5 text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/50 transition-all shadow-sm"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white p-0.5 rounded cursor-pointer"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:text-zinc-400 dark:hover:text-white p-0.5 rounded cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -80,14 +80,14 @@ export function ProductGrid({
         </div>
 
         {/* Filter Pills */}
-        <div className="flex items-center gap-1.5 bg-zinc-900 border border-zinc-800 p-1 rounded-xl shrink-0">
+        <div className="flex items-center gap-1.5 bg-slate-200/70 dark:bg-zinc-900 border border-slate-300/80 dark:border-zinc-800 p-1 rounded-xl shrink-0">
           <button
             type="button"
             onClick={() => setFilterType("all")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
               filterType === "all"
-                ? "bg-zinc-800 text-white shadow"
-                : "text-zinc-400 hover:text-zinc-200"
+                ? "bg-white dark:bg-zinc-800 text-slate-900 dark:text-white shadow-sm"
+                : "text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200"
             }`}
           >
             All Items ({products.length})
@@ -95,10 +95,10 @@ export function ProductGrid({
           <button
             type="button"
             onClick={() => setFilterType("in_stock")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
               filterType === "in_stock"
-                ? "bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 shadow"
-                : "text-zinc-400 hover:text-zinc-200"
+                ? "bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 shadow-sm"
+                : "text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200"
             }`}
           >
             In Stock
@@ -106,10 +106,10 @@ export function ProductGrid({
           <button
             type="button"
             onClick={() => setFilterType("low_stock")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
               filterType === "low_stock"
-                ? "bg-amber-600/30 text-amber-400 border border-amber-500/30 shadow"
-                : "text-zinc-400 hover:text-zinc-200"
+                ? "bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-500/30 shadow-sm"
+                : "text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200"
             }`}
           >
             Low Stock
@@ -120,21 +120,21 @@ export function ProductGrid({
       {/* Grid Container */}
       <div className="flex-1 overflow-y-auto pr-1">
         {loading ? (
-          <div className="h-64 flex flex-col items-center justify-center text-zinc-500">
+          <div className="h-64 flex flex-col items-center justify-center text-slate-400 dark:text-zinc-500">
             <div className="w-8 h-8 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin mb-3"></div>
-            <p className="text-sm">Loading inventory catalog...</p>
+            <p className="text-sm font-medium">Loading inventory catalog...</p>
           </div>
         ) : filteredProducts.length === 0 ? (
-          <div className="h-64 flex flex-col items-center justify-center text-zinc-500 border border-dashed border-zinc-800 rounded-2xl p-6 text-center">
-            <AlertCircle className="w-8 h-8 text-zinc-600 mb-2" />
-            <p className="text-sm font-medium text-zinc-400">No products match your criteria</p>
-            <p className="text-xs text-zinc-600 mt-1">
+          <div className="h-64 flex flex-col items-center justify-center text-slate-500 dark:text-zinc-500 border border-dashed border-slate-300 dark:border-zinc-800 rounded-2xl p-6 text-center">
+            <AlertCircle className="w-8 h-8 text-slate-400 dark:text-zinc-600 mb-2" />
+            <p className="text-sm font-medium text-slate-700 dark:text-zinc-400">No products match your criteria</p>
+            <p className="text-xs text-slate-500 dark:text-zinc-600 mt-1">
               Try adjusting your search terms or filter selection.
             </p>
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="mt-3 text-xs text-emerald-400 hover:underline cursor-pointer"
+                className="mt-3 text-xs text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer font-semibold"
               >
                 Clear search query
               </button>

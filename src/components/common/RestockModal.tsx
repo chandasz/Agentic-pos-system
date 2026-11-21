@@ -183,31 +183,31 @@ export function RestockModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
       <div
-        className="bg-zinc-900 border border-zinc-700/80 rounded-2xl w-full max-w-xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+        className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700/80 rounded-2xl w-full max-w-xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] transition-colors"
         role="dialog"
         aria-modal="true"
         aria-labelledby="restock-modal-title"
       >
         {/* Modal Header */}
-        <div className="bg-zinc-950 px-6 py-4 border-b border-zinc-800 flex items-center justify-between">
+        <div className="bg-slate-50 dark:bg-zinc-950 px-6 py-4 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="bg-emerald-500/20 text-emerald-400 p-2.5 rounded-xl border border-emerald-500/30 flex items-center justify-center">
+            <div className="bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl border border-emerald-500/30 flex items-center justify-center">
               <PackagePlus className="w-5 h-5" />
             </div>
             <div>
-              <h2 id="restock-modal-title" className="text-lg font-bold text-zinc-100 flex items-center gap-2">
+              <h2 id="restock-modal-title" className="text-lg font-bold text-slate-900 dark:text-zinc-100 flex items-center gap-2">
                 Inventory Restock
               </h2>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-slate-500 dark:text-zinc-400">
                 Receive new inventory, adjust stock levels, & optionally update pricing
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="text-zinc-400 hover:text-white p-2 rounded-lg hover:bg-zinc-800 transition-colors"
+            className="text-slate-400 hover:text-slate-800 hover:bg-slate-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-800 p-2 rounded-lg transition-colors cursor-pointer"
             aria-label="Close restock modal"
           >
             <X className="w-5 h-5" />
@@ -218,14 +218,14 @@ export function RestockModal({
         <form onSubmit={handleSubmit} className="p-6 space-y-5 overflow-y-auto flex-1">
           {/* Notification Banners */}
           {errorMessage && (
-            <div className="bg-red-500/10 border border-red-500/30 text-red-400 p-3.5 rounded-xl flex items-center gap-2.5 text-xs">
+            <div className="bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 p-3.5 rounded-xl flex items-center gap-2.5 text-xs font-semibold">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{errorMessage}</span>
             </div>
           )}
 
           {successMessage && (
-            <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-3.5 rounded-xl flex items-center gap-2.5 text-xs">
+            <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 p-3.5 rounded-xl flex items-center gap-2.5 text-xs font-semibold">
               <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>{successMessage}</span>
             </div>
@@ -234,12 +234,12 @@ export function RestockModal({
           {/* Product Selector */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <label htmlFor="product-search" className="text-xs font-semibold uppercase tracking-wider text-zinc-300">
+              <label htmlFor="product-search" className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-zinc-300">
                 1. Select Product to Restock
               </label>
               {loadingProducts && (
-                <span className="text-[11px] text-zinc-400 flex items-center gap-1">
-                  <Loader2 className="w-3 h-3 animate-spin text-emerald-400" />
+                <span className="text-[11px] text-slate-500 dark:text-zinc-400 flex items-center gap-1">
+                  <Loader2 className="w-3 h-3 animate-spin text-emerald-600 dark:text-emerald-400" />
                   Loading catalog...
                 </span>
               )}
@@ -248,14 +248,14 @@ export function RestockModal({
             {/* Quick search input if product list is long */}
             {allProducts.length > 5 && (
               <div className="relative">
-                <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <Search className="w-4 h-4 text-slate-400 dark:text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   id="product-search"
                   type="text"
                   placeholder="Filter by name or SKU..."
                   value={searchFilter}
                   onChange={(e) => setSearchFilter(e.target.value)}
-                  className="w-full bg-zinc-950/70 border border-zinc-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-emerald-500 transition"
+                  className="w-full bg-slate-50 dark:bg-zinc-950/70 border border-slate-300 dark:border-zinc-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-900 dark:text-zinc-200 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-emerald-500 transition"
                 />
               </div>
             )}
@@ -265,13 +265,13 @@ export function RestockModal({
               value={selectedProductId}
               onChange={(e) => handleProductSelect(e.target.value)}
               disabled={loadingProducts || allProducts.length === 0}
-              className="w-full bg-zinc-950 border border-zinc-700 rounded-xl px-3.5 py-2.5 text-sm text-zinc-100 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition cursor-pointer"
+              className="w-full bg-slate-50 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 dark:text-zinc-100 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition cursor-pointer"
             >
               {allProducts.length === 0 && (
                 <option value="">{loadingProducts ? "Loading products..." : "No products available"}</option>
               )}
               {filteredProducts.map((p) => (
-                <option key={p.id} value={p.id} className="bg-zinc-900 py-1">
+                <option key={p.id} value={p.id} className="bg-white dark:bg-zinc-900 py-1 text-slate-900 dark:text-white">
                   {p.name} (SKU: {p.sku}) — Stock: {p.stock_qty}
                 </option>
               ))}
@@ -280,19 +280,19 @@ export function RestockModal({
 
           {/* Selected Product Information Card */}
           {selectedProduct && (
-            <div className="bg-zinc-950/80 border border-zinc-800 rounded-xl p-3.5 space-y-2.5">
+            <div className="bg-slate-50 dark:bg-zinc-950/80 border border-slate-200 dark:border-zinc-800 rounded-xl p-3.5 space-y-2.5">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="font-semibold text-sm text-zinc-200">{selectedProduct.name}</h4>
-                  <p className="text-xs font-mono text-zinc-400">SKU: {selectedProduct.sku}</p>
+                  <h4 className="font-bold text-sm text-slate-900 dark:text-zinc-200">{selectedProduct.name}</h4>
+                  <p className="text-xs font-mono text-slate-500 dark:text-zinc-400">SKU: {selectedProduct.sku}</p>
                 </div>
                 <div className="text-right">
-                  <span className="text-[10px] text-zinc-400 block uppercase">Current Stock</span>
+                  <span className="text-[10px] text-slate-500 dark:text-zinc-400 block uppercase font-medium">Current Stock</span>
                   <span
                     className={`text-sm font-bold font-mono px-2 py-0.5 rounded ${
                       selectedProduct.stock_qty <= selectedProduct.reorder_level
-                        ? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
-                        : "bg-zinc-800 text-zinc-100"
+                        ? "bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-500/30"
+                        : "bg-slate-200 dark:bg-zinc-800 text-slate-800 dark:text-zinc-100"
                     }`}
                   >
                     {selectedProduct.stock_qty} units
@@ -301,7 +301,7 @@ export function RestockModal({
               </div>
 
               {selectedProduct.stock_qty <= selectedProduct.reorder_level && (
-                <p className="text-[11px] text-amber-400/90 flex items-center gap-1">
+                <p className="text-[11px] text-amber-700 dark:text-amber-400/90 flex items-center gap-1 font-semibold">
                   <AlertCircle className="w-3.5 h-3.5" />
                   At or below reorder threshold ({selectedProduct.reorder_level} units). Restock recommended.
                 </p>
@@ -311,12 +311,12 @@ export function RestockModal({
 
           {/* Quantity to Add & Live Projection */}
           <div className="space-y-2">
-            <label htmlFor="quantity-to-add" className="text-xs font-semibold uppercase tracking-wider text-zinc-300">
+            <label htmlFor="quantity-to-add" className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-zinc-300">
               2. Quantity to Add
             </label>
             <div className="flex items-center gap-3">
               <div className="relative flex-1">
-                <Boxes className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <Boxes className="w-4 h-4 text-slate-400 dark:text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   id="quantity-to-add"
                   type="number"
@@ -326,7 +326,7 @@ export function RestockModal({
                   onChange={(e) => setQuantityToAdd(e.target.value)}
                   placeholder="e.g. 20"
                   required
-                  className="w-full bg-zinc-950 border border-zinc-700 rounded-xl pl-9 pr-3.5 py-2.5 text-sm font-mono text-zinc-100 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
+                  className="w-full bg-slate-50 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-700 rounded-xl pl-9 pr-3.5 py-2.5 text-sm font-mono text-slate-900 dark:text-zinc-100 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
                 />
               </div>
 
@@ -337,10 +337,10 @@ export function RestockModal({
                     key={amt}
                     type="button"
                     onClick={() => setQuantityToAdd(String(amt))}
-                    className={`px-2.5 py-2 text-xs font-medium rounded-lg border transition ${
+                    className={`px-2.5 py-2 text-xs font-bold rounded-lg border transition cursor-pointer ${
                       quantityToAdd === String(amt)
-                        ? "bg-emerald-500/20 border-emerald-500 text-emerald-400"
-                        : "bg-zinc-800 border-zinc-700 text-zinc-300 hover:bg-zinc-750"
+                        ? "bg-emerald-500/20 border-emerald-500 text-emerald-700 dark:text-emerald-400"
+                        : "bg-slate-100 dark:bg-zinc-800 border-slate-300 dark:border-zinc-700 text-slate-700 dark:text-zinc-300 hover:bg-slate-200 dark:hover:bg-zinc-750"
                     }`}
                   >
                     +{amt}
@@ -351,34 +351,34 @@ export function RestockModal({
 
             {/* Projected Stock Preview */}
             {selectedProduct && projectedStock !== null && (
-              <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-lg p-2.5 flex items-center justify-between text-xs text-zinc-300">
-                <span className="flex items-center gap-1.5 text-emerald-400">
+              <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-2.5 flex items-center justify-between text-xs text-slate-800 dark:text-zinc-300">
+                <span className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400 font-semibold">
                   <TrendingUp className="w-3.5 h-3.5" />
                   Projected Stock:
                 </span>
                 <span className="font-mono">
                   {selectedProduct.stock_qty} (current) + {numQtyToAdd} (adding) ={" "}
-                  <strong className="text-emerald-400 font-bold">{projectedStock} units</strong>
+                  <strong className="text-emerald-700 dark:text-emerald-400 font-bold">{projectedStock} units</strong>
                 </span>
               </div>
             )}
           </div>
 
           {/* Pricing Adjustments (Optional) */}
-          <div className="pt-2 border-t border-zinc-800 space-y-3">
+          <div className="pt-2 border-t border-slate-200 dark:border-zinc-800 space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-semibold uppercase tracking-wider text-zinc-300 flex items-center gap-1.5">
-                <Tag className="w-3.5 h-3.5 text-emerald-400" />
+              <label className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-zinc-300 flex items-center gap-1.5">
+                <Tag className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                 3. Update Prices (Optional)
               </label>
-              <span className="text-[11px] text-zinc-500">Edit only if prices have changed</span>
+              <span className="text-[11px] text-slate-500 dark:text-zinc-500">Edit only if prices have changed</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               {/* Cost Price */}
               <div className="space-y-1.5">
-                <label htmlFor="cost-price" className="text-xs text-zinc-400 flex items-center gap-1">
-                  <DollarSign className="w-3 h-3 text-zinc-500" />
+                <label htmlFor="cost-price" className="text-xs text-slate-600 dark:text-zinc-400 flex items-center gap-1 font-medium">
+                  <DollarSign className="w-3 h-3 text-slate-400 dark:text-zinc-500" />
                   Supplier Cost Price ($)
                 </label>
                 <input
@@ -389,14 +389,14 @@ export function RestockModal({
                   value={costPrice}
                   onChange={(e) => setCostPrice(e.target.value)}
                   placeholder="0.00"
-                  className="w-full bg-zinc-950 border border-zinc-700 rounded-xl px-3.5 py-2 text-xs font-mono text-zinc-100 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
+                  className="w-full bg-slate-50 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-700 rounded-xl px-3.5 py-2 text-xs font-mono text-slate-900 dark:text-zinc-100 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
                 />
               </div>
 
               {/* Selling Price */}
               <div className="space-y-1.5">
-                <label htmlFor="selling-price" className="text-xs text-zinc-400 flex items-center gap-1">
-                  <DollarSign className="w-3 h-3 text-zinc-500" />
+                <label htmlFor="selling-price" className="text-xs text-slate-600 dark:text-zinc-400 flex items-center gap-1 font-medium">
+                  <DollarSign className="w-3 h-3 text-slate-400 dark:text-zinc-500" />
                   Retail Selling Price ($)
                 </label>
                 <input
@@ -407,26 +407,26 @@ export function RestockModal({
                   value={sellingPrice}
                   onChange={(e) => setSellingPrice(e.target.value)}
                   placeholder="0.00"
-                  className="w-full bg-zinc-950 border border-zinc-700 rounded-xl px-3.5 py-2 text-xs font-mono text-zinc-100 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
+                  className="w-full bg-slate-50 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-700 rounded-xl px-3.5 py-2 text-xs font-mono text-slate-900 dark:text-zinc-100 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
                 />
               </div>
             </div>
           </div>
 
           {/* Modal Actions */}
-          <div className="pt-3 border-t border-zinc-800 flex items-center justify-end gap-3">
+          <div className="pt-3 border-t border-slate-200 dark:border-zinc-800 flex items-center justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
               disabled={isSubmitting}
-              className="px-4 py-2 text-xs font-medium text-zinc-300 hover:text-white bg-zinc-800 hover:bg-zinc-700 rounded-xl transition cursor-pointer"
+              className="px-4 py-2 text-xs font-semibold text-slate-700 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-xl border border-slate-300 dark:border-transparent transition cursor-pointer"
             >
               Close
             </button>
             <button
               type="submit"
               disabled={isSubmitting || !selectedProductId || !isValidQty}
-              className="flex items-center gap-2 px-5 py-2 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 disabled:pointer-events-none rounded-xl shadow-md transition-all active:scale-95 cursor-pointer border border-emerald-400/30"
+              className="flex items-center gap-2 px-5 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 disabled:pointer-events-none rounded-xl shadow-md transition-all active:scale-95 cursor-pointer border border-emerald-400/30"
             >
               {isSubmitting ? (
                 <>

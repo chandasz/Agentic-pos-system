@@ -283,7 +283,7 @@ export default function PosPage() {
   );
 
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden bg-zinc-950 font-sans select-none">
+    <div className="flex flex-col h-screen w-screen overflow-hidden bg-slate-50 dark:bg-zinc-950 font-sans select-none transition-colors duration-200">
       {/* Top Header Bar */}
       <Header
         activeCashier={activeCashier}
@@ -296,7 +296,7 @@ export default function PosPage() {
       {/* Main Dual-Pane POS Layout */}
       <main className="flex-1 flex flex-col md:flex-row overflow-hidden relative">
         {/* Left Pane: Searchable Catalog Grid (~62%) */}
-        <div className="w-full md:w-7/12 lg:w-3/5 h-full overflow-hidden border-r border-zinc-800">
+        <div className="w-full md:w-7/12 lg:w-3/5 h-full overflow-hidden border-r border-slate-200 dark:border-zinc-800">
           <ProductGrid
             products={products}
             cartQuantities={cartQuantities}
@@ -347,17 +347,17 @@ export default function PosPage() {
 
       {/* Transient Toast Alerts */}
       {toast && (
-        <div className="fixed bottom-5 right-5 z-50 flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-xl border animate-in slide-in-from-bottom duration-200 bg-zinc-900 text-zinc-100 max-w-sm">
+        <div className="fixed bottom-5 right-5 z-50 flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-xl border animate-in slide-in-from-bottom duration-200 bg-white dark:bg-zinc-900 text-slate-800 dark:text-zinc-100 border-slate-200 dark:border-zinc-800 max-w-sm">
           {toast.type === "success" && (
-            <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+            <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
           )}
           {toast.type === "error" && (
-            <AlertCircle className="w-5 h-5 text-rose-400 shrink-0" />
+            <AlertCircle className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0" />
           )}
           {toast.type === "info" && (
-            <Info className="w-5 h-5 text-blue-400 shrink-0" />
+            <Info className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0" />
           )}
-          <span className="text-xs font-medium leading-relaxed">{toast.message}</span>
+          <span className="text-xs font-semibold leading-relaxed">{toast.message}</span>
         </div>
       )}
     </div>

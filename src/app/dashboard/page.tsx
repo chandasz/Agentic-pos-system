@@ -110,7 +110,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col selection:bg-emerald-500 selection:text-black">
+    <div className="min-h-screen bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 flex flex-col selection:bg-emerald-500 selection:text-white dark:selection:text-black transition-colors duration-200">
       {/* Header */}
       <DashboardHeader onOpenRestock={() => setIsRestockModalOpen(true)} />
 
@@ -118,14 +118,14 @@ export default function DashboardPage() {
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
         {/* Restock success notification */}
         {restockSuccessNotice && (
-          <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-4 rounded-2xl flex items-center gap-3 text-xs shadow-md animate-in fade-in">
+          <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 p-4 rounded-2xl flex items-center gap-3 text-xs shadow-sm animate-in fade-in">
             <CheckCircle2 className="w-5 h-5 shrink-0" />
             <div className="flex-1">
-              <strong className="font-semibold">Inventory Restocked:</strong> {restockSuccessNotice}
+              <strong className="font-bold">Inventory Restocked:</strong> {restockSuccessNotice}
             </div>
             <button
               onClick={() => setRestockSuccessNotice(null)}
-              className="text-emerald-400 hover:text-emerald-300 font-bold px-2 py-1 rounded cursor-pointer"
+              className="text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 font-bold px-2 py-1 rounded cursor-pointer"
             >
               ✕
             </button>
@@ -134,14 +134,14 @@ export default function DashboardPage() {
 
         {/* Error notification banner if any */}
         {errorMessage && (
-          <div className="bg-red-500/10 border border-red-500/30 text-red-400 p-4 rounded-2xl flex items-center gap-3 text-xs shadow-md">
+          <div className="bg-red-500/10 border border-red-500/30 text-red-700 dark:text-red-400 p-4 rounded-2xl flex items-center gap-3 text-xs shadow-sm">
             <AlertCircle className="w-5 h-5 shrink-0" />
             <div className="flex-1">
-              <strong className="font-semibold">Dashboard Notice:</strong> {errorMessage}
+              <strong className="font-bold">Dashboard Notice:</strong> {errorMessage}
             </div>
             <button
               onClick={() => setErrorMessage(null)}
-              className="text-red-400 hover:text-red-300 font-bold px-2 py-1 rounded"
+              className="text-red-700 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 font-bold px-2 py-1 rounded cursor-pointer"
             >
               ✕
             </button>

@@ -79,17 +79,17 @@ export function CartReceipt({
   };
 
   return (
-    <div className="flex flex-col h-full bg-zinc-900 border-l border-zinc-800 text-zinc-100 overflow-hidden shadow-2xl">
+    <div className="flex flex-col h-full bg-white dark:bg-zinc-900 border-l border-slate-200 dark:border-zinc-800 text-slate-800 dark:text-zinc-100 overflow-hidden shadow-xl transition-colors duration-200">
       {/* Cart Header */}
-      <div className="p-4 border-b border-zinc-800 bg-zinc-950/70 flex items-center justify-between">
+      <div className="p-4 border-b border-slate-200 dark:border-zinc-800 bg-slate-50/80 dark:bg-zinc-950/70 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Receipt className="w-5 h-5 text-emerald-400" />
+          <Receipt className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
           <div>
-            <h2 className="text-sm font-bold text-white tracking-wide uppercase">
+            <h2 className="text-sm font-extrabold text-slate-900 dark:text-white tracking-wide uppercase">
               Current Receipt
             </h2>
-            <p className="text-[11px] text-zinc-400">
-              Cashier: <span className="text-zinc-200 font-medium">{activeCashier}</span>
+            <p className="text-[11px] text-slate-500 dark:text-zinc-400">
+              Cashier: <span className="text-slate-800 dark:text-zinc-200 font-semibold">{activeCashier}</span>
             </p>
           </div>
         </div>
@@ -98,7 +98,7 @@ export function CartReceipt({
           <button
             onClick={onClearCart}
             disabled={processingSale}
-            className="text-xs text-zinc-400 hover:text-rose-400 flex items-center gap-1 transition px-2 py-1 rounded hover:bg-zinc-800 cursor-pointer"
+            className="text-xs text-slate-500 hover:text-rose-600 dark:text-zinc-400 dark:hover:text-rose-400 flex items-center gap-1 transition px-2 py-1 rounded hover:bg-slate-100 dark:hover:bg-zinc-800 cursor-pointer font-medium"
             title="Clear all cart items"
           >
             <Trash2 className="w-3.5 h-3.5" />
@@ -110,12 +110,12 @@ export function CartReceipt({
       {/* Cart Line Items List */}
       <div className="flex-1 overflow-y-auto p-4 space-y-2.5">
         {items.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center text-center p-6 text-zinc-500">
-            <div className="w-16 h-16 rounded-full bg-zinc-800/80 border border-zinc-700/60 flex items-center justify-center mb-3 text-zinc-400">
+          <div className="h-full flex flex-col items-center justify-center text-center p-6 text-slate-400 dark:text-zinc-500">
+            <div className="w-16 h-16 rounded-full bg-slate-100 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700/60 flex items-center justify-center mb-3 text-slate-400 dark:text-zinc-400">
               <ShoppingBag className="w-8 h-8" />
             </div>
-            <p className="text-sm font-semibold text-zinc-300">Cart is empty</p>
-            <p className="text-xs text-zinc-500 max-w-xs mt-1">
+            <p className="text-sm font-bold text-slate-700 dark:text-zinc-300">Cart is empty</p>
+            <p className="text-xs text-slate-500 dark:text-zinc-500 max-w-xs mt-1">
               Select products from the catalog on the left to build the customer receipt.
             </p>
           </div>
@@ -127,38 +127,38 @@ export function CartReceipt({
             return (
               <div
                 key={product.id}
-                className="bg-zinc-950/60 border border-zinc-800/80 rounded-xl p-3 flex flex-col gap-2 hover:border-zinc-700 transition"
+                className="bg-slate-50 dark:bg-zinc-950/60 border border-slate-200 dark:border-zinc-800/80 rounded-xl p-3 flex flex-col gap-2 hover:border-slate-300 dark:hover:border-zinc-700 transition"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-xs font-semibold text-zinc-100 truncate">
+                    <h4 className="text-xs font-bold text-slate-900 dark:text-zinc-100 truncate">
                       {product.name}
                     </h4>
-                    <p className="text-[11px] text-zinc-400 font-mono">
+                    <p className="text-[11px] text-slate-500 dark:text-zinc-400 font-mono">
                       ${product.selling_price.toFixed(2)} each
                     </p>
                   </div>
                   <div className="text-right">
-                    <span className="text-xs font-bold text-emerald-400 font-mono">
+                    <span className="text-xs font-bold text-emerald-700 dark:text-emerald-400 font-mono">
                       ${lineTotal.toFixed(2)}
                     </span>
                   </div>
                 </div>
 
                 {/* Quantity Controls & Remove */}
-                <div className="flex items-center justify-between pt-1 border-t border-zinc-800/50">
+                <div className="flex items-center justify-between pt-1 border-t border-slate-200/60 dark:border-zinc-800/50">
                   <div className="flex items-center gap-2">
-                    <div className="flex items-center bg-zinc-800 rounded-lg border border-zinc-700/70 p-0.5">
+                    <div className="flex items-center bg-slate-100 dark:bg-zinc-800 rounded-lg border border-slate-200 dark:border-zinc-700/70 p-0.5">
                       <button
                         type="button"
                         onClick={() => onUpdateQuantity(product.id, -1)}
                         disabled={processingSale}
-                        className="w-6 h-6 rounded flex items-center justify-center text-zinc-300 hover:text-white hover:bg-zinc-700 active:scale-90 transition cursor-pointer"
+                        className="w-6 h-6 rounded flex items-center justify-center text-slate-700 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-zinc-700 active:scale-90 transition cursor-pointer"
                         title="Decrease quantity"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
-                      <span className="w-8 text-center text-xs font-bold font-mono text-white">
+                      <span className="w-8 text-center text-xs font-bold font-mono text-slate-900 dark:text-white">
                         {quantity}
                       </span>
                       <button
@@ -167,8 +167,8 @@ export function CartReceipt({
                         disabled={isAtMaxStock || processingSale}
                         className={`w-6 h-6 rounded flex items-center justify-center transition ${
                           isAtMaxStock
-                            ? "text-zinc-600 cursor-not-allowed"
-                            : "text-zinc-300 hover:text-white hover:bg-zinc-700 active:scale-90 cursor-pointer"
+                            ? "text-slate-300 dark:text-zinc-600 cursor-not-allowed"
+                            : "text-slate-700 dark:text-zinc-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-zinc-700 active:scale-90 cursor-pointer"
                         }`}
                         title={
                           isAtMaxStock
@@ -181,7 +181,7 @@ export function CartReceipt({
                     </div>
 
                     {isAtMaxStock && (
-                      <span className="text-[10px] text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded">
+                      <span className="text-[10px] text-amber-700 dark:text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded font-semibold">
                         Max Stock ({product.stock_qty})
                       </span>
                     )}
@@ -191,7 +191,7 @@ export function CartReceipt({
                     type="button"
                     onClick={() => onRemoveItem(product.id)}
                     disabled={processingSale}
-                    className="text-zinc-500 hover:text-rose-400 p-1 rounded transition cursor-pointer"
+                    className="text-slate-400 hover:text-rose-600 dark:text-zinc-500 dark:hover:text-rose-400 p-1 rounded transition cursor-pointer"
                     title="Remove item"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -205,16 +205,16 @@ export function CartReceipt({
 
       {/* Cart Summary & Payment Panel */}
       {items.length > 0 && (
-        <div className="border-t border-zinc-800 bg-zinc-950 p-4 space-y-3">
+        <div className="border-t border-slate-200 dark:border-zinc-800 bg-slate-50/90 dark:bg-zinc-950 p-4 space-y-3">
           {/* Payment Method Selector */}
           <div className="grid grid-cols-2 gap-2">
             <button
               type="button"
               onClick={() => setPaymentMethod("CASH")}
-              className={`flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold border transition cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold border transition cursor-pointer ${
                 paymentMethod === "CASH"
-                  ? "bg-emerald-600/20 text-emerald-400 border-emerald-500/40"
-                  : "bg-zinc-900 text-zinc-400 border-zinc-800 hover:bg-zinc-850"
+                  ? "bg-emerald-500/10 dark:bg-emerald-600/20 text-emerald-700 dark:text-emerald-400 border-emerald-500/40 shadow-sm"
+                  : "bg-white dark:bg-zinc-900 text-slate-600 dark:text-zinc-400 border-slate-200 dark:border-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-850"
               }`}
             >
               <Banknote className="w-3.5 h-3.5" />
@@ -223,10 +223,10 @@ export function CartReceipt({
             <button
               type="button"
               onClick={() => setPaymentMethod("CARD")}
-              className={`flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold border transition cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold border transition cursor-pointer ${
                 paymentMethod === "CARD"
-                  ? "bg-emerald-600/20 text-emerald-400 border-emerald-500/40"
-                  : "bg-zinc-900 text-zinc-400 border-zinc-800 hover:bg-zinc-850"
+                  ? "bg-emerald-500/10 dark:bg-emerald-600/20 text-emerald-700 dark:text-emerald-400 border-emerald-500/40 shadow-sm"
+                  : "bg-white dark:bg-zinc-900 text-slate-600 dark:text-zinc-400 border-slate-200 dark:border-zinc-800 hover:bg-slate-100 dark:hover:bg-zinc-850"
               }`}
             >
               <CreditCard className="w-3.5 h-3.5" />
@@ -236,20 +236,20 @@ export function CartReceipt({
 
           {/* Cash Tendered Calculator (if Cash selected) */}
           {paymentMethod === "CASH" && (
-            <div className="space-y-2 bg-zinc-900/80 p-3 rounded-xl border border-zinc-800">
+            <div className="space-y-2 bg-white dark:bg-zinc-900/80 p-3 rounded-xl border border-slate-200 dark:border-zinc-800 shadow-sm">
               <div className="flex items-center justify-between">
-                <label className="text-[11px] text-zinc-400 font-medium">
+                <label className="text-[11px] text-slate-600 dark:text-zinc-400 font-semibold">
                   Amount Tendered ($)
                 </label>
                 {tenderedAmount > 0 && (
-                  <span className="text-[11px] font-mono font-medium text-emerald-400">
+                  <span className="text-[11px] font-mono font-bold text-emerald-700 dark:text-emerald-400">
                     Change: ${changeDue.toFixed(2)}
                   </span>
                 )}
               </div>
 
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-mono text-zinc-400">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-mono text-slate-400 dark:text-zinc-400">
                   $
                 </span>
                 <input
@@ -259,7 +259,7 @@ export function CartReceipt({
                   value={cashTendered}
                   onChange={(e) => setCashTendered(e.target.value)}
                   placeholder={total.toFixed(2)}
-                  className="w-full bg-zinc-950 border border-zinc-700 text-zinc-100 placeholder-zinc-600 rounded-lg pl-7 pr-3 py-1.5 text-sm font-mono focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-slate-50 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-700 text-slate-900 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-600 rounded-lg pl-7 pr-3 py-1.5 text-sm font-mono focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
@@ -268,7 +268,7 @@ export function CartReceipt({
                 <button
                   type="button"
                   onClick={handleExactTender}
-                  className="flex-1 text-[11px] font-mono py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 transition cursor-pointer"
+                  className="flex-1 text-[11px] font-mono py-1 rounded bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-transparent transition cursor-pointer font-semibold"
                 >
                   Exact (${total.toFixed(2)})
                 </button>
@@ -279,7 +279,7 @@ export function CartReceipt({
                       key={amt}
                       type="button"
                       onClick={() => handleQuickTender(amt)}
-                      className="px-2 py-1 text-[11px] font-mono rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 transition cursor-pointer"
+                      className="px-2 py-1 text-[11px] font-mono rounded bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-transparent transition cursor-pointer font-semibold"
                     >
                       ${amt}
                     </button>
@@ -290,16 +290,16 @@ export function CartReceipt({
           )}
 
           {/* Subtotal & Total Line */}
-          <div className="pt-2 border-t border-zinc-800/80 space-y-1.5 text-xs">
-            <div className="flex justify-between text-zinc-400">
+          <div className="pt-2 border-t border-slate-200 dark:border-zinc-800/80 space-y-1.5 text-xs">
+            <div className="flex justify-between text-slate-600 dark:text-zinc-400 font-medium">
               <span>Items Total ({itemCount} units)</span>
               <span className="font-mono">${subtotal.toFixed(2)}</span>
             </div>
             <div className="flex justify-between items-baseline pt-1">
-              <span className="text-sm font-bold text-white uppercase tracking-wider">
+              <span className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider">
                 Total Due
               </span>
-              <span className="text-xl font-extrabold text-emerald-400 font-mono">
+              <span className="text-xl font-extrabold text-emerald-700 dark:text-emerald-400 font-mono">
                 ${total.toFixed(2)}
               </span>
             </div>
@@ -312,8 +312,8 @@ export function CartReceipt({
             disabled={processingSale || !isTenderSufficient}
             className={`w-full py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition-all duration-150 cursor-pointer ${
               processingSale || !isTenderSufficient
-                ? "bg-zinc-800 text-zinc-500 cursor-not-allowed border border-zinc-700/50"
-                : "bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white active:scale-[0.98] shadow-emerald-950/50 border border-emerald-400/30"
+                ? "bg-slate-200 dark:bg-zinc-800 text-slate-400 dark:text-zinc-500 cursor-not-allowed border border-slate-300 dark:border-zinc-700/50"
+                : "bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white active:scale-[0.98] shadow-emerald-700/20 dark:shadow-emerald-950/50 border border-emerald-400/30"
             }`}
           >
             {processingSale ? (

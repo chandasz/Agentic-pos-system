@@ -178,20 +178,20 @@ export function AttendanceModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden text-zinc-100">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/75 backdrop-blur-sm animate-in fade-in duration-150">
+      <div className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden text-slate-800 dark:text-zinc-100 transition-colors">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-zinc-950/60">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-950/60">
           <div>
-            <h2 className="text-base font-semibold text-white flex items-center gap-2">
-              <User className="w-4 h-4 text-blue-400" />
+            <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <User className="w-4 h-4 text-blue-600 dark:text-blue-400" />
               Employee Attendance
             </h2>
-            <p className="text-xs text-zinc-400">Enter your 4-digit staff PIN</p>
+            <p className="text-xs text-slate-500 dark:text-zinc-400">Enter your 4-digit staff PIN</p>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition cursor-pointer"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-800 hover:bg-slate-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -208,8 +208,8 @@ export function AttendanceModal({
                   key={index}
                   className={`w-12 h-14 rounded-xl border-2 flex items-center justify-center text-xl font-bold transition-all duration-150 ${
                     isFilled
-                      ? "border-blue-500 bg-blue-500/10 text-blue-400 shadow-[0_0_12px_rgba(59,130,246,0.3)]"
-                      : "border-zinc-700 bg-zinc-800/50 text-zinc-500"
+                      ? "border-blue-500 bg-blue-500/10 text-blue-600 dark:text-blue-400 shadow-[0_0_12px_rgba(59,130,246,0.25)]"
+                      : "border-slate-300 dark:border-zinc-700 bg-slate-100 dark:bg-zinc-800/50 text-slate-400 dark:text-zinc-500"
                   }`}
                 >
                   {isFilled ? "•" : ""}
@@ -221,12 +221,12 @@ export function AttendanceModal({
           {/* Feedback or Identified Employee banner */}
           {feedback.message ? (
             <div
-              className={`w-full px-3 py-2 rounded-lg text-xs font-medium flex items-center gap-2 mb-4 animate-in fade-in ${
+              className={`w-full px-3 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 mb-4 animate-in fade-in ${
                 feedback.type === "success"
-                  ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
+                  ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30"
                   : feedback.type === "error"
-                  ? "bg-rose-500/15 text-rose-400 border border-rose-500/30"
-                  : "bg-blue-500/15 text-blue-300 border border-blue-500/30"
+                  ? "bg-rose-500/15 text-rose-700 dark:text-rose-400 border border-rose-500/30"
+                  : "bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-500/30"
               }`}
             >
               {feedback.type === "success" && <CheckCircle2 className="w-4 h-4 shrink-0" />}
@@ -235,7 +235,7 @@ export function AttendanceModal({
               <span className="leading-snug">{feedback.message}</span>
             </div>
           ) : (
-            <div className="text-[11px] text-zinc-400 mb-4 h-8 flex items-center justify-center">
+            <div className="text-[11px] text-slate-500 dark:text-zinc-400 mb-4 h-8 flex items-center justify-center">
               Type on keyboard or use keypad below
             </div>
           )}
@@ -248,7 +248,7 @@ export function AttendanceModal({
                 type="button"
                 onClick={() => handleDigit(num.toString())}
                 disabled={loading}
-                className="h-12 rounded-xl bg-zinc-800/90 hover:bg-zinc-700 text-lg font-semibold text-zinc-100 active:scale-95 transition-all shadow-sm border border-zinc-700/50 flex items-center justify-center cursor-pointer"
+                className="h-12 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800/90 dark:hover:bg-zinc-700 text-lg font-bold text-slate-900 dark:text-zinc-100 active:scale-95 transition-all shadow-sm border border-slate-200 dark:border-zinc-700/50 flex items-center justify-center cursor-pointer"
               >
                 {num}
               </button>
@@ -257,7 +257,7 @@ export function AttendanceModal({
               type="button"
               onClick={handleClear}
               disabled={loading}
-              className="h-12 rounded-xl bg-zinc-800/60 hover:bg-zinc-700/80 text-xs font-semibold text-zinc-400 active:scale-95 transition-all border border-zinc-700/40 flex items-center justify-center cursor-pointer"
+              className="h-12 rounded-xl bg-slate-200/70 hover:bg-slate-200 dark:bg-zinc-800/60 dark:hover:bg-zinc-700/80 text-xs font-bold text-slate-600 dark:text-zinc-400 active:scale-95 transition-all border border-slate-300/80 dark:border-zinc-700/40 flex items-center justify-center cursor-pointer"
             >
               CLEAR
             </button>
@@ -265,7 +265,7 @@ export function AttendanceModal({
               type="button"
               onClick={() => handleDigit("0")}
               disabled={loading}
-              className="h-12 rounded-xl bg-zinc-800/90 hover:bg-zinc-700 text-lg font-semibold text-zinc-100 active:scale-95 transition-all shadow-sm border border-zinc-700/50 flex items-center justify-center cursor-pointer"
+              className="h-12 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800/90 dark:hover:bg-zinc-700 text-lg font-bold text-slate-900 dark:text-zinc-100 active:scale-95 transition-all shadow-sm border border-slate-200 dark:border-zinc-700/50 flex items-center justify-center cursor-pointer"
             >
               0
             </button>
@@ -273,7 +273,7 @@ export function AttendanceModal({
               type="button"
               onClick={handleBackspace}
               disabled={loading}
-              className="h-12 rounded-xl bg-zinc-800/60 hover:bg-zinc-700/80 text-zinc-300 active:scale-95 transition-all border border-zinc-700/40 flex items-center justify-center cursor-pointer"
+              className="h-12 rounded-xl bg-slate-200/70 hover:bg-slate-200 dark:bg-zinc-800/60 dark:hover:bg-zinc-700/80 text-slate-700 dark:text-zinc-300 active:scale-95 transition-all border border-slate-300/80 dark:border-zinc-700/40 flex items-center justify-center cursor-pointer"
             >
               <Delete className="w-5 h-5" />
             </button>
@@ -285,10 +285,10 @@ export function AttendanceModal({
               type="button"
               onClick={() => handleAction("clock_in")}
               disabled={loading || pin.length !== 4}
-              className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-150 shadow-md cursor-pointer ${
+              className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-sm transition-all duration-150 shadow-md cursor-pointer ${
                 pin.length === 4 && !loading
                   ? "bg-emerald-600 hover:bg-emerald-500 text-white active:scale-95 shadow-emerald-900/30"
-                  : "bg-zinc-800 text-zinc-500 cursor-not-allowed border border-zinc-700/40"
+                  : "bg-slate-200 dark:bg-zinc-800 text-slate-400 dark:text-zinc-500 cursor-not-allowed border border-slate-300 dark:border-zinc-700/40"
               }`}
             >
               <LogIn className="w-4 h-4" />
@@ -299,10 +299,10 @@ export function AttendanceModal({
               type="button"
               onClick={() => handleAction("clock_out")}
               disabled={loading || pin.length !== 4}
-              className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-150 shadow-md cursor-pointer ${
+              className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-sm transition-all duration-150 shadow-md cursor-pointer ${
                 pin.length === 4 && !loading
                   ? "bg-rose-600 hover:bg-rose-500 text-white active:scale-95 shadow-rose-900/30"
-                  : "bg-zinc-800 text-zinc-500 cursor-not-allowed border border-zinc-700/40"
+                  : "bg-slate-200 dark:bg-zinc-800 text-slate-400 dark:text-zinc-500 cursor-not-allowed border border-slate-300 dark:border-zinc-700/40"
               }`}
             >
               <LogOut className="w-4 h-4" />
@@ -311,10 +311,10 @@ export function AttendanceModal({
           </div>
 
           {/* Quick Seed Hint for Convenience */}
-          <div className="mt-4 pt-3 border-t border-zinc-800/80 text-[11px] text-zinc-500 text-center w-full">
-            Staff Demo PINs: <span className="font-mono text-zinc-400">1024</span> (Elena),{" "}
-            <span className="font-mono text-zinc-400">2048</span> (Marcus),{" "}
-            <span className="font-mono text-zinc-400">3141</span> (Aisha)
+          <div className="mt-4 pt-3 border-t border-slate-200 dark:border-zinc-800/80 text-[11px] text-slate-500 dark:text-zinc-500 text-center w-full">
+            Staff Demo PINs: <span className="font-mono text-slate-700 dark:text-zinc-400 font-semibold">1024</span> (Elena),{" "}
+            <span className="font-mono text-slate-700 dark:text-zinc-400 font-semibold">2048</span> (Marcus),{" "}
+            <span className="font-mono text-slate-700 dark:text-zinc-400 font-semibold">3141</span> (Aisha)
           </div>
         </div>
       </div>
