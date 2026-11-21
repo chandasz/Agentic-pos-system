@@ -1,0 +1,80 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Product {
+  id            String     @id @default(cuid())
+  name          String
+  sku           String     @unique
+  cost_price    Float
+  selling_price Float
+  stock_qty     Int
+  reorder_level Int
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  sale_items    SaleItem[]
+
+  @@map("Products")
+}
+
+model Sale {
+  id           String     @id @default(cuid())
+  timestamp    DateTime   @default(now())
+  total_amount Float
+  cashier_name String
+  sale_items   SaleItem[]
+
+  @@map("Sales")
+}
+
+model SaleItem {
+  id            String   @id @default(cuid())
+  sale_id       String
+  product_id    String
+  quantity      Int
+  price_at_sale Float
+
+  sale    Sale    @relation(fields: [sale_id], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [product_id], references: [id])
+
+  @@map("SaleItems")
+}
+
+model Employee {
+  id          String       @id @default(cuid())
+  name        String
+  role        String
+  pin_code    String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  attendances Attendance[]
+
+  @@map("Employees")
+}
+
+model Attendance {
+  id          String    @id @default(cuid())
+  employee_id String
+  clock_in    DateTime
+  clock_out   DateTime?
+  status      String
+
+  employee Employee @relation(fields: [employee_id], references: [id], onDelete: Cascade)
+
+  @@map("Attendance")
+}
+
+model DailyAIReport {
+  id              String   @id @default(cuid())
+  date            DateTime @unique
+  summary_json    String
+  markdown_report String
+  createdAt       DateTime @default(now())
+
+  @@map("DailyAIReports")
+}
