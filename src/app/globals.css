@@ -25,3 +25,100 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
+
+/* Custom scrollbars for dashboard widgets */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(150, 150, 150, 0.25);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(150, 150, 150, 0.45);
+}
+
+/* ==========================================================================
+   Receipt & POS Bill Print Styles (@media print)
+   Isolates #printable-receipt to produce clean 80mm thermal/paper printouts
+   without dashboard navigation, sidebars, buttons, or theme toggles.
+   ========================================================================== */
+@media print {
+  /* Hide standard page elements & overlays */
+  body * {
+    visibility: hidden;
+  }
+
+  .no-print,
+  header,
+  nav,
+  aside,
+  button,
+  footer {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Reveal strictly the printable receipt */
+  #printable-receipt,
+  #printable-receipt * {
+    visibility: visible;
+  }
+
+  html,
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    overflow: visible !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Anchor receipt cleanly at top center (standard 80mm POS width) */
+  #printable-receipt {
+    position: absolute !important;
+    left: 50% !important;
+    top: 0 !important;
+    transform: translateX(-50%) !important;
+    width: 100% !important;
+    max-width: 80mm !important;
+    margin: 0 auto !important;
+    padding: 6mm 4mm !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    border: 1px dashed #333333 !important;
+    border-radius: 0 !important;
+    page-break-after: avoid;
+    break-inside: avoid;
+  }
+
+  /* Thermal printer high-contrast overrides: remove dark mode fills/shadows */
+  #printable-receipt * {
+    background: transparent !important;
+    color: #000000 !important;
+    border-color: #000000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  #printable-receipt .bg-emerald-600,
+  #printable-receipt .bg-slate-900,
+  #printable-receipt .bg-slate-950,
+  #printable-receipt .bg-zinc-900,
+  #printable-receipt .bg-zinc-950 {
+    background-color: transparent !important;
+    color: #000000 !important;
+    border: 1px solid #000000 !important;
+  }
+
+  @page {
+    size: 80mm auto;
+    margin: 3mm;
+  }
+}

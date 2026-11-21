@@ -10,6 +10,10 @@ import {
 } from "@/components/dashboard/DailyReportView";
 import { BusinessAdvisorChat } from "@/components/dashboard/BusinessAdvisorChat";
 import { RestockModal } from "@/components/common/RestockModal";
+import {
+  ImprovementReceiptModal,
+  ImprovementReportData,
+} from "@/components/dashboard/ImprovementReceiptModal";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 
 export default function DashboardPage() {
@@ -24,6 +28,11 @@ export default function DashboardPage() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isRestockModalOpen, setIsRestockModalOpen] = useState<boolean>(false);
   const [restockSuccessNotice, setRestockSuccessNotice] = useState<string | null>(null);
+
+  // Daily Improvement Report (POS Slip) State
+  const [isImprovementModalOpen, setIsImprovementModalOpen] = useState<boolean>(false);
+  const [improvementReportData, setImprovementReportData] = useState<ImprovementReportData | null>(null);
+  const [isLoadingImprovementReport, setIsLoadingImprovementReport] = useState<boolean>(false);
 
   // 1. Fetch initial dashboard statistics and reports
   const fetchDashboardStats = useCallback(async () => {
@@ -109,10 +118,41 @@ export default function DashboardPage() {
     }
   };
 
+  // 4. Handler to fetch or refresh the Daily Improvement POS-Bill Report
+  const fetchImprovementReport = async () => {
+    setIsLoadingImprovementReport(true);
+    try {
+      const res = await fetch("/api/generate-improvement-report", {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to generate improvement report");
+      }
+      setImprovementReportData(data);
+    } catch (err: unknown) {
+      console.error("Improvement report generation error:", err);
+      const msg = err instanceof Error ? err.message : "Error creating improvement receipt";
+      setErrorMessage(msg);
+    } finally {
+      setIsLoadingImprovementReport(false);
+    }
+  };
+
+  const handleOpenImprovementReport = () => {
+    setIsImprovementModalOpen(true);
+    if (!improvementReportData) {
+      fetchImprovementReport();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-zinc-950 text-slate-900 dark:text-zinc-100 flex flex-col selection:bg-emerald-500 selection:text-white dark:selection:text-black transition-colors duration-200">
       {/* Header */}
-      <DashboardHeader onOpenRestock={() => setIsRestockModalOpen(true)} />
+      <DashboardHeader
+        onOpenRestock={() => setIsRestockModalOpen(true)}
+        onOpenImprovementReport={handleOpenImprovementReport}
+      />
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
@@ -168,6 +208,7 @@ export default function DashboardPage() {
               onGenerateReport={handleGenerateReport}
               isGenerating={isGenerating}
               isLoadingReport={loadingReport}
+              onOpenImprovementReport={handleOpenImprovementReport}
             />
           </div>
 
@@ -188,6 +229,15 @@ export default function DashboardPage() {
             `Added +${addedQty} units to "${updatedProd.name}". New stock: ${updatedProd.stock_qty}.`
           );
         }}
+      />
+
+      {/* Daily Improvement Report (POS Bill Receipt) Modal */}
+      <ImprovementReceiptModal
+        isOpen={isImprovementModalOpen}
+        onClose={() => setIsImprovementModalOpen(false)}
+        data={improvementReportData}
+        isLoading={isLoadingImprovementReport}
+        onRegenerate={fetchImprovementReport}
       />
     </div>
   );

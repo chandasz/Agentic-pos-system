@@ -3,14 +3,15 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Store, Clock, ArrowLeft, Sparkles, PackagePlus } from "lucide-react";
+import { Store, Clock, ArrowLeft, Sparkles, PackagePlus, Printer, Receipt } from "lucide-react";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 
 interface DashboardHeaderProps {
   onOpenRestock?: () => void;
+  onOpenImprovementReport?: () => void;
 }
 
-export function DashboardHeader({ onOpenRestock }: DashboardHeaderProps = {}) {
+export function DashboardHeader({ onOpenRestock, onOpenImprovementReport }: DashboardHeaderProps = {}) {
   const [currentTime, setCurrentTime] = useState<string>("");
   const [currentDate, setCurrentDate] = useState<string>("");
 
@@ -81,6 +82,18 @@ export function DashboardHeader({ onOpenRestock }: DashboardHeaderProps = {}) {
 
       {/* Navigation Buttons & Theme Toggle */}
       <div className="flex items-center gap-2 sm:gap-2.5">
+        {onOpenImprovementReport && (
+          <button
+            onClick={onOpenImprovementReport}
+            className="flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm hover:shadow transition-all duration-150 active:scale-95 border border-emerald-400/30 cursor-pointer"
+            title="Generate & Print Daily Improvement Report (POS Bill Style)"
+          >
+            <Printer className="w-3.5 h-3.5" />
+            <span className="hidden md:inline">Generate & Print Improvement Report</span>
+            <span className="inline md:hidden">Report Slip</span>
+          </button>
+        )}
+
         {onOpenRestock && (
           <button
             onClick={onOpenRestock}

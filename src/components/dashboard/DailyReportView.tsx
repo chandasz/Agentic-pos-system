@@ -11,6 +11,8 @@ import {
   ShieldAlert,
   Users2,
   Lightbulb,
+  Printer,
+  Receipt,
 } from "lucide-react";
 
 export interface ReportItem {
@@ -35,6 +37,7 @@ interface DailyReportViewProps {
   onGenerateReport: () => void;
   isGenerating: boolean;
   isLoadingReport: boolean;
+  onOpenImprovementReport?: () => void;
 }
 
 export function DailyReportView({
@@ -45,6 +48,7 @@ export function DailyReportView({
   onGenerateReport,
   isGenerating,
   isLoadingReport,
+  onOpenImprovementReport,
 }: DailyReportViewProps) {
   // Format the report's date
   const formattedDate = currentReport?.date
@@ -74,15 +78,28 @@ export function DailyReportView({
           </p>
         </div>
 
-        {/* Action button */}
-        <button
-          onClick={onGenerateReport}
-          disabled={isGenerating}
-          className="flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-700/20 dark:shadow-emerald-950/40 hover:shadow-emerald-800/30 transition active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-        >
-          <RefreshCw className={`w-3.5 h-3.5 ${isGenerating ? "animate-spin" : ""}`} />
-          <span>{isGenerating ? "Analyzing Store Data..." : "Generate New Report Now"}</span>
-        </button>
+        {/* Action buttons */}
+        <div className="flex items-center gap-2">
+          {onOpenImprovementReport && (
+            <button
+              onClick={onOpenImprovementReport}
+              className="flex items-center justify-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-750 text-slate-800 dark:text-zinc-200 border border-slate-300 dark:border-zinc-700 hover:border-emerald-500/50 rounded-xl text-xs font-bold shadow-sm transition active:scale-95 cursor-pointer"
+              title="Print POS-Style Improvement Slip"
+            >
+              <Printer className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <span>Print Improvement Slip</span>
+            </button>
+          )}
+
+          <button
+            onClick={onGenerateReport}
+            disabled={isGenerating}
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-700/20 dark:shadow-emerald-950/40 hover:shadow-emerald-800/30 transition active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${isGenerating ? "animate-spin" : ""}`} />
+            <span>{isGenerating ? "Analyzing Store Data..." : "Generate Full Advisory"}</span>
+          </button>
+        </div>
       </div>
 
       {/* Selector & Meta Bar */}
